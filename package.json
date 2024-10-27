@@ -6,9 +6,13 @@
     "dev": "bun run --watch src/index.ts"
   },
   "dependencies": {
-    "elysia": "latest"
+    "alchemy-sdk": "^3.4.6",
+    "axios": "^1.7.7",
+    "elysia": "latest",
+    "ethers": "^6.13.4"
   },
   "devDependencies": {
+    "@types/axios": "^0.14.4",
     "bun-types": "latest"
   },
   "module": "src/index.js"
