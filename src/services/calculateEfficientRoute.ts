@@ -1,5 +1,3 @@
-// src/services/calculateEfficientRoute.ts
-
 import { fetchUserBalances } from "./fetchUserBalances";
 import { fetchFeesForAllChains } from "./fetchBridgeFees";
 
@@ -15,6 +13,17 @@ interface InsufficientBalanceResponse {
   requiredAmount: number;
 }
 
+/**
+ * Calculates the most cost-effective bridging routes to transfer the specified amount to the target chain.
+ * 
+ * @param targetChainId - The chain ID of the destination chain where the amount needs to be transferred.
+ * @param amount - The required amount of tokens to transfer to the target chain.
+ * @param userAddress - The user's wallet address.
+ * @param tokenSymbol - The symbol of the token to be bridged (e.g., "USDC").
+ * 
+ * @returns A promise that resolves to an array of optimal `Route` objects representing each chain's bridging route, 
+ *          or an `InsufficientBalanceResponse` if there are insufficient funds to bridge the required amount.
+ */
 export const calculateEfficientRoute = async (
   targetChainId: string,
   amount: number,
@@ -22,8 +31,10 @@ export const calculateEfficientRoute = async (
   tokenSymbol: string
 ): Promise<Route[] | InsufficientBalanceResponse> => {
   try {
+    // Step 1: Fetch the user's token balances on all chains
     const balances = await fetchUserBalances(userAddress, tokenSymbol);
 
+    // Step 2: Fetch bridging fees for all chains to the target chain
     const bridgeFees = await fetchFeesForAllChains(
       balances,
       targetChainId,
@@ -32,19 +43,16 @@ export const calculateEfficientRoute = async (
       tokenSymbol
     );
 
-    // Calculate the remaining amount needed on the target chain
+    // Step 3: Calculate the remaining amount needed on the target chain
     const currentBalance = balances[targetChainId] || 0;
     const remainingAmount = amount - currentBalance;
 
-    if (remainingAmount <= 0) {
-      return []; // No bridging needed
-    }
+    // If the current balance meets the requirement, no bridging is needed
+    if (remainingAmount <= 0) return [];
 
-    // Check if there are enough funds across all chains
-    const totalAvailableToBridge = Object.keys(balances)
-      .filter((chain) => chain !== targetChainId)
-      .reduce((sum, chain) => sum + balances[chain], 0);
-
+    // Step 4: Check if the total available balance across all chains is sufficient
+    const totalAvailableToBridge = Object.values(balances).reduce((sum, balance) => sum + balance, 0) - currentBalance;
+    
     if (totalAvailableToBridge < remainingAmount) {
       return {
         error: "Insufficient balance to bridge the required amount.",
@@ -53,38 +61,29 @@ export const calculateEfficientRoute = async (
       };
     }
 
-    // Sort chains by bridging fees to targetChainId
+    // Step 5: Filter and sort routes by lowest bridging fees and positive balances
     const routes = bridgeFees
       .filter(
-        (fee) =>
-          fee.toChainId === targetChainId && fee.fee !=null && fee.fee !=undefined && balances[fee.fromChainId] > 0
+        (fee) => fee.fee !== undefined && fee.fee >= 0 && balances[fee.fromChainId] > 0
       )
-      .map((fee) => {
-        console.log(
-          `From Chain: ${fee.fromChainId}, Balance: ${
-            balances[fee.fromChainId]
-          }, Fee: ${fee.fee}`
-        );
-        return {
-          chain: fee.fromChainId,
-          balance: balances[fee.fromChainId],
-          fee: fee?.fee
-        };
-      })
-      .sort((a, b) => a.fee - b.fee); // Sort by fee in ascending order
+      .map((fee) => ({
+        chain: fee.fromChainId,
+        balance: balances[fee.fromChainId],
+        fee: fee.fee as number,  // Assert 'fee' is non-null by this point
+      }))
+      .sort((a, b) => a.fee - b.fee);
 
     console.log("Filtered and Sorted Routes:", routes);
 
     const selectedRoutes: Route[] = [];
     let totalBridged = 0;
 
+    // Step 6: Select optimal routes until the required amount is bridged
     for (const route of routes) {
       if (totalBridged >= remainingAmount) break;
 
-      const bridgeAmount = Math.min(
-        route.balance,
-        remainingAmount - totalBridged
-      );
+      // Determine amount to bridge for the current route
+      const bridgeAmount = Math.min(route.balance, remainingAmount - totalBridged);
       totalBridged += bridgeAmount;
 
       selectedRoutes.push({
@@ -93,9 +92,10 @@ export const calculateEfficientRoute = async (
         fee: parseFloat(route.fee.toFixed(4)),
       });
     }
+
     return selectedRoutes;
   } catch (error) {
-    console.log(`Error occured while calculating efficient fee :: ${error}`);
+    console.error(`Error occurred while calculating efficient route: ${error}`);
     throw error;
   }
 };

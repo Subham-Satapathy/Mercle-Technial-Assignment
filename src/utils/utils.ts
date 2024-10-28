@@ -28,7 +28,7 @@ export const calculateTotalFees = (routes: Route) => {
         totalBridgeFee += route.fee;
       });
     }
-    return totalBridgeFee
+    return parseFloat(totalBridgeFee.toFixed(4))
 };
 
 export const mapChainName = (routes: Route) => {
