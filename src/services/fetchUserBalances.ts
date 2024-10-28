@@ -15,12 +15,12 @@ if (!API_KEY) {
 export const fetchUserBalances = async (userAddress: string, tokenSymbol: string): Promise<Balances> => {
   try {
     // Simulate fetching balances
-    const balances: Balances = {
-      137: 50, // In USDC
-      42161: 100, // In USDC
-      100: 25, // In USDC
-      81457: 30, // In USDC
-    };
+    // const balances: Balances = {
+    //   137: 50, // In USDC
+    //   42161: 100, // In USDC
+    //   100: 25, // In USDC
+    //   81457: 30, // In USDC
+    // };
     const response = await fetchBalancesForToken(userAddress, tokenSymbol);
     console.log(`Balance of address '${userAddress}' to bridge '${tokenSymbol}' :: ${JSON.stringify(response)}`);
     return response;
