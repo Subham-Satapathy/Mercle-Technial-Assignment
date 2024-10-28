@@ -11,7 +11,7 @@ Install my-project with npm
 
 Clone the repository:
 ```bash
-  git clone <repository_url>
+  git clone https://github.com/Subham-Satapathy/Mercle-Technial-Assignment.git
 
 ```
 Navigate to the project directory:
@@ -24,16 +24,6 @@ Install dependencies:
   bun install
 
 ```
-
-## Environment Variables
-
-To run this project, you will need to add the following environment variables to your .env file
-
-You can use below API KEY provided by socket-api or request a new one from them.
-
-`72a5b4b0-e727-48be-8aa1-5da9d62fe635`
-
-
 
 ## Run Locally
 
@@ -51,6 +41,15 @@ OR
 
 ```bash
   bun dev
+```
+
+
+## Running Tests
+
+To run tests, run the following command
+
+```bash
+  bun test
 ```
 
 
