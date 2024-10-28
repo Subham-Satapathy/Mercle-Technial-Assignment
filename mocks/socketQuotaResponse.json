@@ -1,0 +1,1075 @@
+{
+    "success": true,
+    "result": {
+        "routes": [
+            {
+                "routeId": "cfe8f2c7-512c-4431-912a-fca46ec65d5b",
+                "isOnlySwapRoute": false,
+                "fromAmount": "100000000",
+                "toAmount": "99968023000000000000",
+                "usedBridgeNames": [
+                    "celer"
+                ],
+                "minimumGasBalances": {
+                    "56": "2800000000000000",
+                    "137": "60000000000000000"
+                },
+                "chainGasBalances": {
+                    "56": {
+                        "minGasBalance": "2800000000000000",
+                        "hasGasBalance": false
+                    },
+                    "137": {
+                        "minGasBalance": "60000000000000000",
+                        "hasGasBalance": false
+                    }
+                },
+                "totalUserTx": 1,
+                "sender": "0x3e8cB4bd04d81498aB4b94a392c334F5328b237b",
+                "recipient": "0x3e8cB4bd04d81498aB4b94a392c334F5328b237b",
+                "totalGasFeesInUsd": 0.00457440688973323,
+                "receivedValueInUsd": 99.88346559311027,
+                "inputValueInUsd": 99.992,
+                "outputValueInUsd": 99.88804,
+                "userTxs": [
+                    {
+                        "userTxType": "fund-movr",
+                        "txType": "eth_sendTransaction",
+                        "chainId": 137,
+                        "toAmount": "99968023000000000000",
+                        "toAsset": {
+                            "chainId": 56,
+                            "address": "0x55d398326f99059ff775485246999027b3197955",
+                            "symbol": "USDT",
+                            "name": "Tether USD",
+                            "decimals": 18,
+                            "icon": "https://assets.polygon.technology/tokenAssets/usdt.svg",
+                            "logoURI": "https://assets.polygon.technology/tokenAssets/usdt.svg",
+                            "chainAgnosticId": "USDT"
+                        },
+                        "stepCount": 2,
+                        "routePath": "407-23",
+                        "sender": "0x3e8cB4bd04d81498aB4b94a392c334F5328b237b",
+                        "approvalData": {
+                            "minimumApprovalAmount": "100000000",
+                            "approvalTokenAddress": "0x2791bca1f2de4661ed88a30c99a7a9449aa84174",
+                            "allowanceTarget": "0x3a23F943181408EAC424116Af7b7790c94Cb97a5",
+                            "owner": "0x3e8cB4bd04d81498aB4b94a392c334F5328b237b"
+                        },
+                        "steps": [
+                            {
+                                "type": "middleware",
+                                "protocol": {
+                                    "name": "zerox",
+                                    "displayName": "0x",
+                                    "icon": "https://media.socket.tech/dexes/0x.svg"
+                                },
+                                "chainId": 137,
+                                "fromAsset": {
+                                    "chainId": 137,
+                                    "address": "0x2791bca1f2de4661ed88a30c99a7a9449aa84174",
+                                    "symbol": "USDC.E",
+                                    "name": "USDCoin",
+                                    "decimals": 6,
+                                    "icon": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/logo.png",
+                                    "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/logo.png",
+                                    "chainAgnosticId": "USDC"
+                                },
+                                "fromAmount": "100000000",
+                                "toAsset": {
+                                    "chainId": 137,
+                                    "address": "0xc2132d05d31c914a87c6611c10748aeb04b58e8f",
+                                    "symbol": "USDT",
+                                    "name": "Tether USD",
+                                    "decimals": 6,
+                                    "icon": "https://assets.polygon.technology/tokenAssets/usdt.svg",
+                                    "logoURI": "https://assets.polygon.technology/tokenAssets/usdt.svg",
+                                    "chainAgnosticId": "USDT"
+                                },
+                                "toAmount": "99968023",
+                                "swapSlippage": 0.3,
+                                "minAmountOut": "99668118",
+                                "gasFees": {
+                                    "gasAmount": "8703284702705000",
+                                    "gasLimit": 305000,
+                                    "asset": {
+                                        "chainId": 137,
+                                        "address": "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+                                        "symbol": "MATIC",
+                                        "name": "MATIC",
+                                        "decimals": 18,
+                                        "icon": "https://assets.polygon.technology/tokenAssets/matic.svg",
+                                        "logoURI": "https://assets.polygon.technology/tokenAssets/matic.svg",
+                                        "chainAgnosticId": null
+                                    },
+                                    "feesInUsd": 0.0028707697559025415
+                                }
+                            },
+                            {
+                                "type": "bridge",
+                                "protocol": {
+                                    "name": "celer",
+                                    "displayName": "Celer",
+                                    "icon": "https://socketicons.s3.amazonaws.com/Celer+Light.png",
+                                    "securityScore": 3,
+                                    "robustnessScore": 3
+                                },
+                                "fromChainId": 137,
+                                "fromAsset": {
+                                    "chainId": 137,
+                                    "address": "0xc2132d05d31c914a87c6611c10748aeb04b58e8f",
+                                    "symbol": "USDT",
+                                    "name": "Tether USD",
+                                    "decimals": 6,
+                                    "icon": "https://assets.polygon.technology/tokenAssets/usdt.svg",
+                                    "logoURI": "https://assets.polygon.technology/tokenAssets/usdt.svg",
+                                    "chainAgnosticId": "USDT"
+                                },
+                                "fromAmount": "99968023",
+                                "minAmountOut": "97918677597500000000",
+                                "toChainId": 56,
+                                "toAsset": {
+                                    "chainId": 56,
+                                    "address": "0x55d398326f99059ff775485246999027b3197955",
+                                    "symbol": "USDT",
+                                    "name": "Tether USD",
+                                    "decimals": 18,
+                                    "icon": "https://assets.polygon.technology/tokenAssets/usdt.svg",
+                                    "logoURI": "https://assets.polygon.technology/tokenAssets/usdt.svg",
+                                    "chainAgnosticId": "USDT"
+                                },
+                                "toAmount": "99968023000000000000",
+                                "bridgeSlippage": 1.75,
+                                "protocolFees": {
+                                    "asset": {
+                                        "chainId": 137,
+                                        "address": "0xc2132d05d31c914a87c6611c10748aeb04b58e8f",
+                                        "symbol": "USDT",
+                                        "name": "Tether USD",
+                                        "decimals": 6,
+                                        "icon": "https://assets.polygon.technology/tokenAssets/usdt.svg",
+                                        "logoURI": "https://assets.polygon.technology/tokenAssets/usdt.svg",
+                                        "chainAgnosticId": "USDT"
+                                    },
+                                    "amount": "0",
+                                    "feesInUsd": 0
+                                },
+                                "gasFees": {
+                                    "gasAmount": "5164900102261000",
+                                    "gasLimit": 181000,
+                                    "asset": {
+                                        "chainId": 137,
+                                        "address": "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+                                        "symbol": "MATIC",
+                                        "name": "MATIC",
+                                        "decimals": 18,
+                                        "icon": "https://assets.polygon.technology/tokenAssets/matic.svg",
+                                        "logoURI": "https://assets.polygon.technology/tokenAssets/matic.svg",
+                                        "chainAgnosticId": null
+                                    },
+                                    "feesInUsd": 0.0017036371338306885
+                                },
+                                "serviceTime": 480,
+                                "maxServiceTime": 7200,
+                                "extraData": {
+                                    "rewards": []
+                                }
+                            }
+                        ],
+                        "gasFees": {
+                            "gasAmount": "13868184804966000",
+                            "feesInUsd": 0.00457440688973323,
+                            "asset": {
+                                "chainId": 137,
+                                "address": "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+                                "symbol": "MATIC",
+                                "name": "MATIC",
+                                "decimals": 18,
+                                "icon": "https://assets.polygon.technology/tokenAssets/matic.svg",
+                                "logoURI": "https://assets.polygon.technology/tokenAssets/matic.svg",
+                                "chainAgnosticId": null
+                            },
+                            "gasLimit": 486000
+                        },
+                        "serviceTime": 480,
+                        "recipient": "0x3e8cB4bd04d81498aB4b94a392c334F5328b237b",
+                        "maxServiceTime": 7200,
+                        "bridgeSlippage": 1.75,
+                        "swapSlippage": 0.3,
+                        "userTxIndex": 0
+                    }
+                ],
+                "serviceTime": 480,
+                "maxServiceTime": 7200,
+                "integratorFee": {
+                    "amount": "0",
+                    "asset": {
+                        "chainId": 137,
+                        "address": "0x2791bca1f2de4661ed88a30c99a7a9449aa84174",
+                        "symbol": "USDC.E",
+                        "name": "USDCoin",
+                        "decimals": 6,
+                        "icon": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/logo.png",
+                        "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/logo.png",
+                        "chainAgnosticId": "USDC"
+                    }
+                },
+                "extraData": {
+                    "rewards": []
+                }
+            },
+            {
+                "routeId": "3d53c5c7-8d03-4fee-85b8-5c49ccddd6f2",
+                "isOnlySwapRoute": false,
+                "fromAmount": "100000000",
+                "toAmount": "99792795969475006523",
+                "usedBridgeNames": [
+                    "hyphen"
+                ],
+                "minimumGasBalances": {
+                    "56": "2800000000000000",
+                    "137": "60000000000000000"
+                },
+                "chainGasBalances": {
+                    "56": {
+                        "minGasBalance": "2800000000000000",
+                        "hasGasBalance": false
+                    },
+                    "137": {
+                        "minGasBalance": "60000000000000000",
+                        "hasGasBalance": false
+                    }
+                },
+                "totalUserTx": 1,
+                "sender": "0x3e8cB4bd04d81498aB4b94a392c334F5328b237b",
+                "recipient": "0x3e8cB4bd04d81498aB4b94a392c334F5328b237b",
+                "totalGasFeesInUsd": 0.0047871262224656805,
+                "receivedValueInUsd": 99.70817287377753,
+                "inputValueInUsd": 99.992,
+                "outputValueInUsd": 99.71296,
+                "userTxs": [
+                    {
+                        "userTxType": "fund-movr",
+                        "txType": "eth_sendTransaction",
+                        "chainId": 137,
+                        "toAmount": "99792795969475006523",
+                        "toAsset": {
+                            "chainId": 56,
+                            "address": "0x55d398326f99059ff775485246999027b3197955",
+                            "symbol": "USDT",
+                            "name": "Tether USD",
+                            "decimals": 18,
+                            "icon": "https://assets.polygon.technology/tokenAssets/usdt.svg",
+                            "logoURI": "https://assets.polygon.technology/tokenAssets/usdt.svg",
+                            "chainAgnosticId": "USDT"
+                        },
+                        "stepCount": 2,
+                        "routePath": "407-3",
+                        "sender": "0x3e8cB4bd04d81498aB4b94a392c334F5328b237b",
+                        "approvalData": {
+                            "minimumApprovalAmount": "100000000",
+                            "approvalTokenAddress": "0x2791bca1f2de4661ed88a30c99a7a9449aa84174",
+                            "allowanceTarget": "0x3a23F943181408EAC424116Af7b7790c94Cb97a5",
+                            "owner": "0x3e8cB4bd04d81498aB4b94a392c334F5328b237b"
+                        },
+                        "steps": [
+                            {
+                                "type": "middleware",
+                                "protocol": {
+                                    "name": "zerox",
+                                    "displayName": "0x",
+                                    "icon": "https://media.socket.tech/dexes/0x.svg"
+                                },
+                                "chainId": 137,
+                                "fromAsset": {
+                                    "chainId": 137,
+                                    "address": "0x2791bca1f2de4661ed88a30c99a7a9449aa84174",
+                                    "symbol": "USDC.E",
+                                    "name": "USDCoin",
+                                    "decimals": 6,
+                                    "icon": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/logo.png",
+                                    "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/logo.png",
+                                    "chainAgnosticId": "USDC"
+                                },
+                                "fromAmount": "100000000",
+                                "toAsset": {
+                                    "chainId": 137,
+                                    "address": "0xc2132d05d31c914a87c6611c10748aeb04b58e8f",
+                                    "symbol": "USDT",
+                                    "name": "Tether USD",
+                                    "decimals": 6,
+                                    "icon": "https://assets.polygon.technology/tokenAssets/usdt.svg",
+                                    "logoURI": "https://assets.polygon.technology/tokenAssets/usdt.svg",
+                                    "chainAgnosticId": "USDT"
+                                },
+                                "toAmount": "99968023",
+                                "swapSlippage": 0.3,
+                                "minAmountOut": "99668118",
+                                "gasFees": {
+                                    "gasAmount": "8703284702705000",
+                                    "gasLimit": 305000,
+                                    "asset": {
+                                        "chainId": 137,
+                                        "address": "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+                                        "symbol": "MATIC",
+                                        "name": "MATIC",
+                                        "decimals": 18,
+                                        "icon": "https://assets.polygon.technology/tokenAssets/matic.svg",
+                                        "logoURI": "https://assets.polygon.technology/tokenAssets/matic.svg",
+                                        "chainAgnosticId": null
+                                    },
+                                    "feesInUsd": 0.0028707697559025415
+                                }
+                            },
+                            {
+                                "type": "bridge",
+                                "protocol": {
+                                    "name": "hyphen",
+                                    "displayName": "Hyphen",
+                                    "icon": "https://media.socket.tech/bridges/hyphen.svg",
+                                    "securityScore": 1,
+                                    "robustnessScore": 4
+                                },
+                                "fromChainId": 137,
+                                "fromAsset": {
+                                    "chainId": 137,
+                                    "address": "0xc2132d05d31c914a87c6611c10748aeb04b58e8f",
+                                    "symbol": "USDT",
+                                    "name": "Tether USD",
+                                    "decimals": 6,
+                                    "icon": "https://assets.polygon.technology/tokenAssets/usdt.svg",
+                                    "logoURI": "https://assets.polygon.technology/tokenAssets/usdt.svg",
+                                    "chainAgnosticId": "USDT"
+                                },
+                                "fromAmount": "99968023",
+                                "minAmountOut": "99492890969475006523",
+                                "toChainId": 56,
+                                "toAsset": {
+                                    "chainId": 56,
+                                    "address": "0x55d398326f99059ff775485246999027b3197955",
+                                    "symbol": "USDT",
+                                    "name": "Tether USD",
+                                    "decimals": 18,
+                                    "icon": "https://assets.polygon.technology/tokenAssets/usdt.svg",
+                                    "logoURI": "https://assets.polygon.technology/tokenAssets/usdt.svg",
+                                    "chainAgnosticId": "USDT"
+                                },
+                                "toAmount": "99792795969475006523",
+                                "bridgeSlippage": 0,
+                                "protocolFees": {
+                                    "asset": {
+                                        "chainId": 137,
+                                        "address": "0xc2132d05d31c914a87c6611c10748aeb04b58e8f",
+                                        "symbol": "USDT",
+                                        "name": "Tether USD",
+                                        "decimals": 6,
+                                        "icon": "https://assets.polygon.technology/tokenAssets/usdt.svg",
+                                        "logoURI": "https://assets.polygon.technology/tokenAssets/usdt.svg",
+                                        "chainAgnosticId": "USDT"
+                                    },
+                                    "amount": "175227",
+                                    "feesInUsd": 0.174994
+                                },
+                                "gasFees": {
+                                    "gasAmount": "5809799231051600",
+                                    "gasLimit": 203600,
+                                    "asset": {
+                                        "chainId": 137,
+                                        "address": "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+                                        "symbol": "MATIC",
+                                        "name": "MATIC",
+                                        "decimals": 18,
+                                        "icon": "https://assets.polygon.technology/tokenAssets/matic.svg",
+                                        "logoURI": "https://assets.polygon.technology/tokenAssets/matic.svg",
+                                        "chainAgnosticId": null
+                                    },
+                                    "feesInUsd": 0.0019163564665631392
+                                },
+                                "serviceTime": 240,
+                                "maxServiceTime": 7200,
+                                "extraData": {
+                                    "rewards": []
+                                }
+                            }
+                        ],
+                        "gasFees": {
+                            "gasAmount": "14513083933756600",
+                            "feesInUsd": 0.0047871262224656805,
+                            "asset": {
+                                "chainId": 137,
+                                "address": "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+                                "symbol": "MATIC",
+                                "name": "MATIC",
+                                "decimals": 18,
+                                "icon": "https://assets.polygon.technology/tokenAssets/matic.svg",
+                                "logoURI": "https://assets.polygon.technology/tokenAssets/matic.svg",
+                                "chainAgnosticId": null
+                            },
+                            "gasLimit": 508600
+                        },
+                        "serviceTime": 240,
+                        "recipient": "0x3e8cB4bd04d81498aB4b94a392c334F5328b237b",
+                        "maxServiceTime": 7200,
+                        "bridgeSlippage": 0,
+                        "swapSlippage": 0.3,
+                        "userTxIndex": 0
+                    }
+                ],
+                "serviceTime": 240,
+                "maxServiceTime": 7200,
+                "integratorFee": {
+                    "amount": "0",
+                    "asset": {
+                        "chainId": 137,
+                        "address": "0x2791bca1f2de4661ed88a30c99a7a9449aa84174",
+                        "symbol": "USDC.E",
+                        "name": "USDCoin",
+                        "decimals": 6,
+                        "icon": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/logo.png",
+                        "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/logo.png",
+                        "chainAgnosticId": "USDC"
+                    }
+                },
+                "extraData": {
+                    "rewards": []
+                }
+            },
+            {
+                "routeId": "23910325-4e5b-4b74-ba37-6c2ea60159f3",
+                "isOnlySwapRoute": false,
+                "fromAmount": "100000000",
+                "toAmount": "99406426000000000000",
+                "usedBridgeNames": [
+                    "stargate-v2"
+                ],
+                "minimumGasBalances": {
+                    "56": "2800000000000000",
+                    "137": "60000000000000000"
+                },
+                "chainGasBalances": {
+                    "56": {
+                        "minGasBalance": "2800000000000000",
+                        "hasGasBalance": false
+                    },
+                    "137": {
+                        "minGasBalance": "60000000000000000",
+                        "hasGasBalance": false
+                    }
+                },
+                "totalUserTx": 1,
+                "sender": "0x3e8cB4bd04d81498aB4b94a392c334F5328b237b",
+                "recipient": "0x3e8cB4bd04d81498aB4b94a392c334F5328b237b",
+                "totalGasFeesInUsd": 0.0068239608951781725,
+                "receivedValueInUsd": 99.32007603910482,
+                "inputValueInUsd": 99.992,
+                "outputValueInUsd": 99.3269,
+                "userTxs": [
+                    {
+                        "userTxType": "fund-movr",
+                        "txType": "eth_sendTransaction",
+                        "chainId": 137,
+                        "toAmount": "99406426000000000000",
+                        "toAsset": {
+                            "chainId": 56,
+                            "address": "0x55d398326f99059ff775485246999027b3197955",
+                            "symbol": "USDT",
+                            "name": "Tether USD",
+                            "decimals": 18,
+                            "icon": "https://assets.polygon.technology/tokenAssets/usdt.svg",
+                            "logoURI": "https://assets.polygon.technology/tokenAssets/usdt.svg",
+                            "chainAgnosticId": "USDT"
+                        },
+                        "stepCount": 2,
+                        "routePath": "407-418",
+                        "sender": "0x3e8cB4bd04d81498aB4b94a392c334F5328b237b",
+                        "approvalData": {
+                            "minimumApprovalAmount": "100000000",
+                            "approvalTokenAddress": "0x2791bca1f2de4661ed88a30c99a7a9449aa84174",
+                            "allowanceTarget": "0x3a23F943181408EAC424116Af7b7790c94Cb97a5",
+                            "owner": "0x3e8cB4bd04d81498aB4b94a392c334F5328b237b"
+                        },
+                        "steps": [
+                            {
+                                "type": "middleware",
+                                "protocol": {
+                                    "name": "zerox",
+                                    "displayName": "0x",
+                                    "icon": "https://media.socket.tech/dexes/0x.svg"
+                                },
+                                "chainId": 137,
+                                "fromAsset": {
+                                    "chainId": 137,
+                                    "address": "0x2791bca1f2de4661ed88a30c99a7a9449aa84174",
+                                    "symbol": "USDC.E",
+                                    "name": "USDCoin",
+                                    "decimals": 6,
+                                    "icon": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/logo.png",
+                                    "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/logo.png",
+                                    "chainAgnosticId": "USDC"
+                                },
+                                "fromAmount": "100000000",
+                                "toAsset": {
+                                    "chainId": 137,
+                                    "address": "0xc2132d05d31c914a87c6611c10748aeb04b58e8f",
+                                    "symbol": "USDT",
+                                    "name": "Tether USD",
+                                    "decimals": 6,
+                                    "icon": "https://assets.polygon.technology/tokenAssets/usdt.svg",
+                                    "logoURI": "https://assets.polygon.technology/tokenAssets/usdt.svg",
+                                    "chainAgnosticId": "USDT"
+                                },
+                                "toAmount": "99968023",
+                                "swapSlippage": 0.3,
+                                "minAmountOut": "99668118",
+                                "gasFees": {
+                                    "gasAmount": "8703284702705000",
+                                    "gasLimit": 305000,
+                                    "asset": {
+                                        "chainId": 137,
+                                        "address": "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+                                        "symbol": "MATIC",
+                                        "name": "MATIC",
+                                        "decimals": 18,
+                                        "icon": "https://assets.polygon.technology/tokenAssets/matic.svg",
+                                        "logoURI": "https://assets.polygon.technology/tokenAssets/matic.svg",
+                                        "chainAgnosticId": null
+                                    },
+                                    "feesInUsd": 0.0028707697559025415
+                                }
+                            },
+                            {
+                                "type": "bridge",
+                                "protocol": {
+                                    "name": "stargate-v2",
+                                    "displayName": "Stargate V2",
+                                    "icon": "https://s2.coinmarketcap.com/static/img/coins/128x128/18934.png",
+                                    "securityScore": 2,
+                                    "robustnessScore": 3
+                                },
+                                "fromChainId": 137,
+                                "fromAsset": {
+                                    "chainId": 137,
+                                    "address": "0xc2132d05d31c914a87c6611c10748aeb04b58e8f",
+                                    "symbol": "USDT",
+                                    "name": "Tether USD",
+                                    "decimals": 6,
+                                    "icon": "https://assets.polygon.technology/tokenAssets/usdt.svg",
+                                    "logoURI": "https://assets.polygon.technology/tokenAssets/usdt.svg",
+                                    "chainAgnosticId": "USDT"
+                                },
+                                "fromAmount": "99968023",
+                                "minAmountOut": "99406426000000000000",
+                                "toChainId": 56,
+                                "toAsset": {
+                                    "chainId": 56,
+                                    "address": "0x55d398326f99059ff775485246999027b3197955",
+                                    "symbol": "USDT",
+                                    "name": "Tether USD",
+                                    "decimals": 18,
+                                    "icon": "https://assets.polygon.technology/tokenAssets/usdt.svg",
+                                    "logoURI": "https://assets.polygon.technology/tokenAssets/usdt.svg",
+                                    "chainAgnosticId": "USDT"
+                                },
+                                "toAmount": "99406426000000000000",
+                                "bridgeSlippage": 0.5,
+                                "protocolFees": {
+                                    "asset": {
+                                        "chainId": 137,
+                                        "address": "0xc2132d05d31c914a87c6611c10748aeb04b58e8f",
+                                        "symbol": "USDT",
+                                        "name": "Tether USD",
+                                        "decimals": 6,
+                                        "icon": "https://assets.polygon.technology/tokenAssets/usdt.svg",
+                                        "logoURI": "https://assets.polygon.technology/tokenAssets/usdt.svg",
+                                        "chainAgnosticId": "USDT"
+                                    },
+                                    "amount": "559111",
+                                    "feesInUsd": 0.558369
+                                },
+                                "gasFees": {
+                                    "gasAmount": "11984851066020000",
+                                    "gasLimit": 420000,
+                                    "asset": {
+                                        "chainId": 137,
+                                        "address": "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+                                        "symbol": "MATIC",
+                                        "name": "MATIC",
+                                        "decimals": 18,
+                                        "icon": "https://assets.polygon.technology/tokenAssets/matic.svg",
+                                        "logoURI": "https://assets.polygon.technology/tokenAssets/matic.svg",
+                                        "chainAgnosticId": null
+                                    },
+                                    "feesInUsd": 0.003953191139275631
+                                },
+                                "serviceTime": 1140,
+                                "maxServiceTime": 7200,
+                                "extraData": {
+                                    "rewards": []
+                                }
+                            }
+                        ],
+                        "gasFees": {
+                            "gasAmount": "20688135768725000",
+                            "feesInUsd": 0.0068239608951781725,
+                            "asset": {
+                                "chainId": 137,
+                                "address": "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+                                "symbol": "MATIC",
+                                "name": "MATIC",
+                                "decimals": 18,
+                                "icon": "https://assets.polygon.technology/tokenAssets/matic.svg",
+                                "logoURI": "https://assets.polygon.technology/tokenAssets/matic.svg",
+                                "chainAgnosticId": null
+                            },
+                            "gasLimit": 725000
+                        },
+                        "serviceTime": 1140,
+                        "recipient": "0x3e8cB4bd04d81498aB4b94a392c334F5328b237b",
+                        "maxServiceTime": 7200,
+                        "bridgeSlippage": 0.5,
+                        "swapSlippage": 0.3,
+                        "userTxIndex": 0
+                    }
+                ],
+                "serviceTime": 1140,
+                "maxServiceTime": 7200,
+                "integratorFee": {
+                    "amount": "0",
+                    "asset": {
+                        "chainId": 137,
+                        "address": "0x2791bca1f2de4661ed88a30c99a7a9449aa84174",
+                        "symbol": "USDC.E",
+                        "name": "USDCoin",
+                        "decimals": 6,
+                        "icon": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/logo.png",
+                        "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/logo.png",
+                        "chainAgnosticId": "USDC"
+                    }
+                },
+                "extraData": {
+                    "rewards": []
+                }
+            },
+            {
+                "routeId": "54cdea80-3565-4439-806c-cc58a03b3863",
+                "isOnlySwapRoute": false,
+                "fromAmount": "100000000",
+                "toAmount": "98428279000000000000",
+                "usedBridgeNames": [
+                    "stargate"
+                ],
+                "minimumGasBalances": {
+                    "56": "2800000000000000",
+                    "137": "60000000000000000"
+                },
+                "chainGasBalances": {
+                    "56": {
+                        "minGasBalance": "2800000000000000",
+                        "hasGasBalance": false
+                    },
+                    "137": {
+                        "minGasBalance": "60000000000000000",
+                        "hasGasBalance": false
+                    }
+                },
+                "totalUserTx": 1,
+                "sender": "0x3e8cB4bd04d81498aB4b94a392c334F5328b237b",
+                "recipient": "0x3e8cB4bd04d81498aB4b94a392c334F5328b237b",
+                "totalGasFeesInUsd": 0.0062401875122254265,
+                "receivedValueInUsd": 98.34328981248778,
+                "inputValueInUsd": 99.992,
+                "outputValueInUsd": 98.34953,
+                "userTxs": [
+                    {
+                        "userTxType": "fund-movr",
+                        "txType": "eth_sendTransaction",
+                        "chainId": 137,
+                        "toAmount": "98428279000000000000",
+                        "toAsset": {
+                            "chainId": 56,
+                            "address": "0x55d398326f99059ff775485246999027b3197955",
+                            "symbol": "USDT",
+                            "name": "Tether USD",
+                            "decimals": 18,
+                            "icon": "https://assets.polygon.technology/tokenAssets/usdt.svg",
+                            "logoURI": "https://assets.polygon.technology/tokenAssets/usdt.svg",
+                            "chainAgnosticId": "USDT"
+                        },
+                        "stepCount": 1,
+                        "routePath": "0-413",
+                        "sender": "0x3e8cB4bd04d81498aB4b94a392c334F5328b237b",
+                        "approvalData": {
+                            "minimumApprovalAmount": "100000000",
+                            "approvalTokenAddress": "0x2791bca1f2de4661ed88a30c99a7a9449aa84174",
+                            "allowanceTarget": "0x3a23F943181408EAC424116Af7b7790c94Cb97a5",
+                            "owner": "0x3e8cB4bd04d81498aB4b94a392c334F5328b237b"
+                        },
+                        "steps": [
+                            {
+                                "type": "bridge",
+                                "protocol": {
+                                    "name": "stargate",
+                                    "displayName": "Stargate",
+                                    "icon": "https://s2.coinmarketcap.com/static/img/coins/128x128/18934.png",
+                                    "securityScore": 2,
+                                    "robustnessScore": 3
+                                },
+                                "bridgeSlippage": 0.5,
+                                "fromChainId": 137,
+                                "fromAsset": {
+                                    "chainId": 137,
+                                    "address": "0x2791bca1f2de4661ed88a30c99a7a9449aa84174",
+                                    "symbol": "USDC.E",
+                                    "name": "USDCoin",
+                                    "decimals": 6,
+                                    "icon": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/logo.png",
+                                    "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/logo.png",
+                                    "chainAgnosticId": "USDC"
+                                },
+                                "fromAmount": "100000000",
+                                "toChainId": 56,
+                                "toAsset": {
+                                    "chainId": 56,
+                                    "address": "0x55d398326f99059ff775485246999027b3197955",
+                                    "symbol": "USDT",
+                                    "name": "Tether USD",
+                                    "decimals": 18,
+                                    "icon": "https://assets.polygon.technology/tokenAssets/usdt.svg",
+                                    "logoURI": "https://assets.polygon.technology/tokenAssets/usdt.svg",
+                                    "chainAgnosticId": "USDT"
+                                },
+                                "minAmountOut": "97936137000000000000",
+                                "toAmount": "98428279000000000000",
+                                "protocolFees": {
+                                    "asset": {
+                                        "chainId": 137,
+                                        "address": "0x2791bca1f2de4661ed88a30c99a7a9449aa84174",
+                                        "symbol": "USDC.E",
+                                        "name": "USDCoin",
+                                        "decimals": 6,
+                                        "icon": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/logo.png",
+                                        "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/logo.png",
+                                        "chainAgnosticId": "USDC"
+                                    },
+                                    "feesInUsd": 1.636533,
+                                    "amount": "1636656"
+                                },
+                                "gasFees": {
+                                    "gasAmount": "18918315690590018",
+                                    "asset": {
+                                        "chainId": 137,
+                                        "address": "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+                                        "symbol": "MATIC",
+                                        "name": "MATIC",
+                                        "decimals": 18,
+                                        "icon": "https://assets.polygon.technology/tokenAssets/matic.svg",
+                                        "logoURI": "https://assets.polygon.technology/tokenAssets/matic.svg",
+                                        "chainAgnosticId": null
+                                    },
+                                    "gasLimit": 420000,
+                                    "feesInUsd": 0.0062401875122254265
+                                },
+                                "serviceTime": 1080,
+                                "maxServiceTime": 7200,
+                                "extraData": {
+                                    "rewards": []
+                                }
+                            }
+                        ],
+                        "gasFees": {
+                            "gasAmount": "18918315690590018",
+                            "feesInUsd": 0.0062401875122254265,
+                            "asset": {
+                                "chainId": 137,
+                                "address": "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+                                "symbol": "MATIC",
+                                "name": "MATIC",
+                                "decimals": 18,
+                                "icon": "https://assets.polygon.technology/tokenAssets/matic.svg",
+                                "logoURI": "https://assets.polygon.technology/tokenAssets/matic.svg",
+                                "chainAgnosticId": null
+                            },
+                            "gasLimit": 420000
+                        },
+                        "serviceTime": 1080,
+                        "recipient": "0x3e8cB4bd04d81498aB4b94a392c334F5328b237b",
+                        "maxServiceTime": 7200,
+                        "bridgeSlippage": 0.5,
+                        "userTxIndex": 0
+                    }
+                ],
+                "serviceTime": 1080,
+                "maxServiceTime": 7200,
+                "integratorFee": {
+                    "amount": "0",
+                    "asset": {
+                        "chainId": 137,
+                        "address": "0x2791bca1f2de4661ed88a30c99a7a9449aa84174",
+                        "symbol": "USDC.E",
+                        "name": "USDCoin",
+                        "decimals": 6,
+                        "icon": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/logo.png",
+                        "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/logo.png",
+                        "chainAgnosticId": "USDC"
+                    }
+                },
+                "extraData": {
+                    "rewards": []
+                }
+            },
+            {
+                "routeId": "cd51aa8b-c08b-4df6-b555-5a8d0d88481b",
+                "isOnlySwapRoute": false,
+                "fromAmount": "100000000",
+                "toAmount": "98115668503148847589",
+                "usedBridgeNames": [
+                    "synapse"
+                ],
+                "minimumGasBalances": {
+                    "56": "2800000000000000",
+                    "137": "60000000000000000"
+                },
+                "chainGasBalances": {
+                    "56": {
+                        "minGasBalance": "2800000000000000",
+                        "hasGasBalance": false
+                    },
+                    "137": {
+                        "minGasBalance": "60000000000000000",
+                        "hasGasBalance": false
+                    }
+                },
+                "totalUserTx": 1,
+                "sender": "0x3e8cB4bd04d81498aB4b94a392c334F5328b237b",
+                "recipient": "0x3e8cB4bd04d81498aB4b94a392c334F5328b237b",
+                "totalGasFeesInUsd": 0.002823707956625451,
+                "receivedValueInUsd": 98.03434629204338,
+                "inputValueInUsd": 99.992,
+                "outputValueInUsd": 98.03717,
+                "userTxs": [
+                    {
+                        "userTxType": "fund-movr",
+                        "txType": "eth_sendTransaction",
+                        "chainId": 137,
+                        "toAmount": "98115668503148847589",
+                        "toAsset": {
+                            "chainId": 56,
+                            "address": "0x55d398326f99059ff775485246999027b3197955",
+                            "symbol": "USDT",
+                            "name": "Tether USD",
+                            "decimals": 18,
+                            "icon": "https://assets.polygon.technology/tokenAssets/usdt.svg",
+                            "logoURI": "https://assets.polygon.technology/tokenAssets/usdt.svg",
+                            "chainAgnosticId": "USDT"
+                        },
+                        "stepCount": 1,
+                        "routePath": "0-393",
+                        "sender": "0x3e8cB4bd04d81498aB4b94a392c334F5328b237b",
+                        "approvalData": {
+                            "minimumApprovalAmount": "100000000",
+                            "approvalTokenAddress": "0x2791bca1f2de4661ed88a30c99a7a9449aa84174",
+                            "allowanceTarget": "0x3a23F943181408EAC424116Af7b7790c94Cb97a5",
+                            "owner": "0x3e8cB4bd04d81498aB4b94a392c334F5328b237b"
+                        },
+                        "steps": [
+                            {
+                                "type": "bridge",
+                                "protocol": {
+                                    "name": "synapse",
+                                    "displayName": "Synapse",
+                                    "icon": "https://307049640-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2F-MhQGEw0SsziyZOw9Bjh%2Fuploads%2FSzVM9wfRXcQqGEqnUlbV%2Fsynapse_social_icon.png?alt=media&token=15f2bcc2-da1e-4671-8f0a-fd5c8bd35569",
+                                    "securityScore": 3,
+                                    "robustnessScore": 3
+                                },
+                                "fromChainId": 137,
+                                "fromAsset": {
+                                    "chainId": 137,
+                                    "address": "0x2791bca1f2de4661ed88a30c99a7a9449aa84174",
+                                    "symbol": "USDC.E",
+                                    "name": "USDCoin",
+                                    "decimals": 6,
+                                    "icon": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/logo.png",
+                                    "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/logo.png",
+                                    "chainAgnosticId": "USDC"
+                                },
+                                "fromAmount": "100000000",
+                                "minAmountOut": "97919437166142549893",
+                                "toChainId": 56,
+                                "toAsset": {
+                                    "chainId": 56,
+                                    "address": "0x55d398326f99059ff775485246999027b3197955",
+                                    "symbol": "USDT",
+                                    "name": "Tether USD",
+                                    "decimals": 18,
+                                    "icon": "https://assets.polygon.technology/tokenAssets/usdt.svg",
+                                    "logoURI": "https://assets.polygon.technology/tokenAssets/usdt.svg",
+                                    "chainAgnosticId": "USDT"
+                                },
+                                "toAmount": "98115668503148847589",
+                                "bridgeSlippage": 0.2,
+                                "protocolFees": {
+                                    "asset": {
+                                        "chainId": 137,
+                                        "address": "0x2791bca1f2de4661ed88a30c99a7a9449aa84174",
+                                        "symbol": "USDC.E",
+                                        "name": "USDCoin",
+                                        "decimals": 6,
+                                        "icon": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/logo.png",
+                                        "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/logo.png",
+                                        "chainAgnosticId": "USDC"
+                                    },
+                                    "amount": "1884332",
+                                    "feesInUsd": 1.88419
+                                },
+                                "gasFees": {
+                                    "gasAmount": "8560607904300000",
+                                    "gasLimit": 300000,
+                                    "asset": {
+                                        "chainId": 137,
+                                        "address": "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+                                        "symbol": "MATIC",
+                                        "name": "MATIC",
+                                        "decimals": 18,
+                                        "icon": "https://assets.polygon.technology/tokenAssets/matic.svg",
+                                        "logoURI": "https://assets.polygon.technology/tokenAssets/matic.svg",
+                                        "chainAgnosticId": null
+                                    },
+                                    "feesInUsd": 0.002823707956625451
+                                },
+                                "serviceTime": 300,
+                                "maxServiceTime": 7200,
+                                "extraData": {
+                                    "rewards": []
+                                }
+                            }
+                        ],
+                        "gasFees": {
+                            "gasAmount": "8560607904300000",
+                            "feesInUsd": 0.002823707956625451,
+                            "asset": {
+                                "chainId": 137,
+                                "address": "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+                                "symbol": "MATIC",
+                                "name": "MATIC",
+                                "decimals": 18,
+                                "icon": "https://assets.polygon.technology/tokenAssets/matic.svg",
+                                "logoURI": "https://assets.polygon.technology/tokenAssets/matic.svg",
+                                "chainAgnosticId": null
+                            },
+                            "gasLimit": 300000
+                        },
+                        "serviceTime": 300,
+                        "recipient": "0x3e8cB4bd04d81498aB4b94a392c334F5328b237b",
+                        "maxServiceTime": 7200,
+                        "bridgeSlippage": 0.2,
+                        "userTxIndex": 0
+                    }
+                ],
+                "serviceTime": 300,
+                "maxServiceTime": 7200,
+                "integratorFee": {
+                    "amount": "0",
+                    "asset": {
+                        "chainId": 137,
+                        "address": "0x2791bca1f2de4661ed88a30c99a7a9449aa84174",
+                        "symbol": "USDC.E",
+                        "name": "USDCoin",
+                        "decimals": 6,
+                        "icon": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/logo.png",
+                        "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/logo.png",
+                        "chainAgnosticId": "USDC"
+                    }
+                },
+                "extraData": {
+                    "rewards": []
+                }
+            }
+        ],
+        "socketRoute": null,
+        "destinationCallData": {},
+        "fromChainId": 137,
+        "fromAsset": {
+            "chainId": 137,
+            "address": "0x2791bca1f2de4661ed88a30c99a7a9449aa84174",
+            "symbol": "USDC.E",
+            "name": "USDCoin",
+            "decimals": 6,
+            "icon": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/logo.png",
+            "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/logo.png",
+            "chainAgnosticId": "USDC"
+        },
+        "toChainId": 56,
+        "toAsset": {
+            "chainId": 56,
+            "address": "0x55d398326f99059ff775485246999027b3197955",
+            "symbol": "USDT",
+            "name": "Tether USD",
+            "decimals": 18,
+            "icon": "https://media.socket.tech/tokens/all/USDT",
+            "logoURI": "https://media.socket.tech/tokens/all/USDT",
+            "chainAgnosticId": "USDT"
+        },
+        "bridgeRouteErrors": {
+            "polygon-bridge": {
+                "status": "ASSET_NOT_SUPPORTED"
+            },
+            "arbitrum-bridge": {
+                "status": "ASSET_NOT_SUPPORTED"
+            },
+            "anyswap-router-v4": {
+                "status": "ASSET_NOT_SUPPORTED"
+            },
+            "anyswap-router-v6": {
+                "status": "ASSET_NOT_SUPPORTED"
+            },
+            "hop": {
+                "status": "ASSET_NOT_SUPPORTED"
+            },
+            "hopCctp": {
+                "status": "ASSET_NOT_SUPPORTED"
+            },
+            "across": {
+                "status": "ASSET_NOT_SUPPORTED"
+            },
+            "refuel-bridge": {
+                "status": "ASSET_NOT_SUPPORTED"
+            },
+            "optimism-bridge": {
+                "status": "ASSET_NOT_SUPPORTED"
+            },
+            "cctp": {
+                "status": "ASSET_NOT_SUPPORTED"
+            },
+            "connext": {
+                "status": "ASSET_NOT_SUPPORTED"
+            },
+            "base-bridge": {
+                "status": "ASSET_NOT_SUPPORTED"
+            },
+            "zora-bridge": {
+                "status": "ASSET_NOT_SUPPORTED"
+            },
+            "zksync-native": {
+                "status": "ASSET_NOT_SUPPORTED"
+            },
+            "symbiosis": {
+                "status": "ASSET_NOT_SUPPORTED"
+            },
+            "gnosis-native-bridge": {
+                "status": "ASSET_NOT_SUPPORTED"
+            },
+            "mantle-native-bridge": {
+                "status": "ASSET_NOT_SUPPORTED"
+            },
+            "scroll-native-bridge": {
+                "status": "ASSET_NOT_SUPPORTED"
+            },
+            "mode-native-bridge": {
+                "status": "ASSET_NOT_SUPPORTED"
+            },
+            "super-bridge": {
+                "status": "ASSET_NOT_SUPPORTED"
+            }
+        }
+    }
+}
