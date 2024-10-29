@@ -1,14 +1,9 @@
 import { Elysia } from "elysia";
 import { calculateEfficientRoute } from "./services/calculateEfficientRoute";
-import { findChainId, calculateTotalFees, mapChainName } from "./utils/Utils";
+import { findChainId, calculateTotalFees, mapChainName, formatEstimatedTime, calculateTotalEstimatedTime, getTimeFormattedRoutes } from "./utils/utils";
+import { Route } from './interfaces/interfaces';
 
 const app = new Elysia();
-
-interface Route {
-  chain: string;
-  amount: number;
-  fee: number;
-}
 
 /**
  * Fetches the most cost-efficient bridge path for asset transfers.
@@ -19,9 +14,8 @@ interface Route {
  * - amount (number): The amount of tokens to transfer to the target chain.
  * - tokenSymbol (string): The symbol of the token to be bridged (e.g., "USDC").
  * - userAddress (string): The user's wallet address.
- * - fastestRoute (boolean): Optional parameter to specify if the fastest route is preferred.
  *
- * @returns {Object} Response with success status, total bridge fee, and route details. 
+ * @returns {Object} Response with success status, total bridge fee, and route details.
  *                   In case of sufficient balance on the target chain, it returns a success message.
  */
 app.get("/fetch-efficient-bridge-path", async ({ query, error }) => {
@@ -35,19 +29,15 @@ app.get("/fetch-efficient-bridge-path", async ({ query, error }) => {
     );
 
     // Destructure normalized parameters, converting strings to expected types where necessary
-    const {
-      targetChain,
-      amount,
-      tokenSymbol,
-      userAddress,
-      fastestRoute
-    } = normalizedQuery;
+    let { targetChain, amount, tokenSymbol, userAddress } =
+      normalizedQuery;
 
     // Validate required parameters
     if (!targetChain || !amount || !tokenSymbol || !userAddress) {
       return error(400, {
         success: false,
-        error: "Missing required parameters. Ensure targetChain, amount, tokenSymbol, and userAddress are provided.",
+        error:
+          "Missing required parameters. Ensure targetChain, amount, tokenSymbol, and userAddress are provided.",
       });
     }
 
@@ -73,23 +63,31 @@ app.get("/fetch-efficient-bridge-path", async ({ query, error }) => {
       return {
         success: true,
         routes: [],
-        message: "You already have sufficient funds on the target chain. No bridging is necessary!",
+        message:
+          "You already have sufficient funds on the target chain. No bridging is necessary!",
       };
     }
 
     // Calculate the total bridge fee and map chain IDs to chain names for each route
     const totalBridgeFee = calculateTotalFees(routes as Route[]);
-    const routesWithChainName = mapChainName(routes as Route[]);
+    const totalTime = formatEstimatedTime(calculateTotalEstimatedTime(routes as Route[]))
+    //Formatting expectedTime
+    const timeFormattedRoutes = getTimeFormattedRoutes(routes as Route[])
+    
+    const routesWithChainName = mapChainName(timeFormattedRoutes as Route[]);
 
     // Return the route data with chain names and total fees
     return {
       success: true,
       totalFee: totalBridgeFee,
+      totalExpectedTime: totalTime,
       routes: routesWithChainName,
     };
   } catch (err) {
     // Handle unexpected errors with a log message and a 500 status response
-    console.error(`Error occurred while processing the bridge path request: ${err}`);
+    console.error(
+      `Error occurred while processing the bridge path request: ${err}`
+    );
     return error(500, {
       success: false,
       error: "Internal Server Error",

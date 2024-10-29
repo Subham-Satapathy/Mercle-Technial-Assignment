@@ -1,6 +1,6 @@
 import axios from "axios";
 import dotenv from "dotenv";
-
+import { Balances } from '../interfaces/interfaces';
 // Load environment variables from .env file
 dotenv.config();
 
@@ -8,11 +8,6 @@ const API_KEY = process.env.API_KEY;
 
 if (!API_KEY) {
   throw new Error("API_KEY is not defined in .env file");
-}
-
-// Interface to define the balances by chain ID
-interface Balances {
-  [chain: string]: number;
 }
 
 /**

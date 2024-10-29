@@ -1,6 +1,6 @@
 import axios from "axios";
 import dotenv from "dotenv";
-
+import { BridgeFees, TokenAddressesByChainID } from '../interfaces/interfaces';
 dotenv.config();
 
 const API_KEY = process.env.API_KEY;
@@ -9,21 +9,10 @@ if (!API_KEY) {
   throw new Error("API_KEY is not defined in .env file");
 }
 
-interface Route {
-  totalGasFeesInUsd: number;
-  fromToken: string;
-  toToken: string;
-  estimatedTime: number;
-}
 
-interface BridgeFees {
-  fromChainId: string;
-  toChainId: string;
-  fee: number | undefined;
-}
 
 // Map of token addresses by chain ID for various networks
-const tokenAddressesByChainID = {
+const tokenAddressesByChainID : TokenAddressesByChainID = {
   1: { USDC: "0xA0b86991c6218b36c1d19d4a2e9eb0ce3606eb48" },       // Ethereum
   137: { USDC: "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174" },      // Polygon
   56: { USDC: "0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d" },       // Binance Smart Chain
@@ -56,7 +45,8 @@ const fetchBridgeFees = async (
   const toAssetAddress = tokenAddressesByChainID[Number(targetChainId)]?.[tokenSymbol];
 
   const uniqueRoutesPerBridge = true; // Ensure unique routes for each bridge
-  const sort = "output"; // Sort routes by output, other options are "gas" and "time"
+  const sort = "gas"; // Sort routes by gas, other options are "output" and "time"
+  
   const singleTxOnly = true; // Fetch single transaction only for simplicity
 
   try {
@@ -73,12 +63,12 @@ const fetchBridgeFees = async (
     );
 
     const data = response.data;
-    const cheapestRoute = findCheapestRoute(data?.result?.routes);
 
-    const fee = cheapestRoute?.totalGasFeesInUsd || undefined;
-    const bridgeFee = { fromChainId, toChainId: targetChainId, fee };
+    const bestRoute = data?.result?.routes[0]; //As we have already sorted before
 
-    console.log('Calculated cheapest bridge fee:', bridgeFee);
+    const fee = bestRoute?.totalGasFeesInUsd || undefined;
+    const minTime = bestRoute?.serviceTime
+    const bridgeFee = { fromChainId, toChainId: targetChainId, fee, minTime };
 
     return bridgeFee;
 
@@ -127,19 +117,6 @@ async function getQuote(
 }
 
 /**
- * Finds the route with the lowest gas fees in USD.
- * 
- * @param routes - Array of available routes with fee information
- * @returns The route object with the lowest gas fee or null if no routes are available
- */
-function findCheapestRoute(routes: Route[]): Route | null {
-  if (!routes || routes.length === 0) return null;
-  return routes.reduce((cheapest, current) => (
-    current.totalGasFeesInUsd < cheapest.totalGasFeesInUsd ? current : cheapest
-  ));
-}
-
-/**
  * Fetches bridge fees for all available chains except the target chain.
  * 
  * @param balances - An object containing the user’s token balances by chain ID
@@ -152,7 +129,6 @@ function findCheapestRoute(routes: Route[]): Route | null {
 export const fetchFeesForAllChains = async (
   balances: { [key: string]: number },
   targetChainId: string,
-  amount: number,
   userAddress: string,
   tokenSymbol: string
 ) => {
@@ -160,7 +136,6 @@ export const fetchFeesForAllChains = async (
     try {
       if (fromChainId !== targetChainId) {
         const bridgeFee = await fetchBridgeFees(fromChainId, targetChainId, balance, userAddress, tokenSymbol);
-        console.log(`Fees for chain ${fromChainId}:`, bridgeFee);
         return bridgeFee;
       }
     } catch (error: any) {
