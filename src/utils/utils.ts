@@ -12,12 +12,15 @@ const chainIds: ChainIds = chainIdsData as ChainIds;
  */
 export function findChainId(chainName: string): string | null {
   try {
-    return Object.entries(chainIds).find(([, value]) => value === chainName.toLowerCase())?.[0];
+    const chainId = Object.entries(chainIds).find(([, value]) => value === chainName.toLowerCase())?.[0];
+    // Return null if chainId is undefined
+    return chainId ?? null;
   } catch (error) {
     console.error(`Error occurred while finding chainId: ${error}`);
     throw error;
   }
 }
+
 
 /**
  * Calculates the total fees from an array of routes.
@@ -34,7 +37,11 @@ export const calculateTotalFees = (routes: Route[]): number => {
  * @returns The total estimated time in seconds.
  */
 export const calculateTotalEstimatedTime = (routes: Route[]): number => {
-  return routes.reduce((total, route) => total + route.expectedTime, 0);
+  return routes.reduce((total, route) => {
+    // Use a default value of 0 if route.expectedTime is null
+    const expectedTime = route.expectedTime ?? 0; 
+    return total + expectedTime; 
+  }, 0);
 };
 
 /**

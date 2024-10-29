@@ -11,19 +11,19 @@ if (!API_KEY) {
 
 
 
-// Map of token addresses by chain ID for various networks
+// Map of token addresses by chain ID for various networks, we can add more networks and tokens in future
 const tokenAddressesByChainID : TokenAddressesByChainID = {
-  1: { USDC: "0xA0b86991c6218b36c1d19d4a2e9eb0ce3606eb48" },       // Ethereum
-  137: { USDC: "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174" },      // Polygon
-  56: { USDC: "0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d" },       // Binance Smart Chain
-  43114: { USDC: "0xB97EF9Ef8734C71904D8002F8b6Bc66Dd9c48a6E" },    // Avalanche
-  250: { USDC: "0x04068DA6C83AFCFA0e13ba15A6696662335D5B75" },      // Fantom
-  42161: { USDC: "0xFF970A61A04b1cA14834A43f5de4533ebDDB5CC8" },    // Arbitrum
-  10: { USDC: "0x7F5c764cBc14f9669B88837ca1490cCa17c31607" },       // Optimism
+  1: { USDC: "0xA0b86991c6218b36c1d19d4a2e9eb0ce3606eb48" }, // Ethereum
+  137: { USDC: "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174" }, // Polygon
+  56: { USDC: "0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d" }, // Binance Smart Chain
+  43114: { USDC: "0xB97EF9Ef8734C71904D8002F8b6Bc66Dd9c48a6E" }, // Avalanche
+  250: { USDC: "0x04068DA6C83AFCFA0e13ba15A6696662335D5B75" }, // Fantom
+  42161: { USDC: "0xFF970A61A04b1cA14834A43f5de4533ebDDB5CC8" }, // Arbitrum
+  10: { USDC: "0x7F5c764cBc14f9669B88837ca1490cCa17c31607" }, // Optimism
   1666600000: { USDC: "0x985458e523db3d53125813ed68c274899e9dfab4" }, // Harmony
-  42220: { USDC: "0x765DE816845861e75A25fCA122bb6898B8B1282a" },     // Celo
-  34443: {USDC: "0xd988097fb8612cc24eec14542bc03424c656005f"},         //Mode,
-  8453: {USDC: "0xd9aaec86b65d86f6a7b5b1b0c42ffa531710b6ca"},          //Base
+  42220: { USDC: "0x765DE816845861e75A25fCA122bb6898B8B1282a" }, // Celo
+  34443: {USDC: "0xd988097fb8612cc24eec14542bc03424c656005f"}, //Mode,
+  8453: {USDC: "0xd9aaec86b65d86f6a7b5b1b0c42ffa531710b6ca"}, //Base
   324: {USDC: "0x3355df6d4c9c3035724fd0e3914de96a5a83aaf4"} //Zk Sync
 };
 
