@@ -7,7 +7,6 @@ This project provides various utilities and services for managing and interactin
 
 ## Installation
 
-Install my-project with npm
 
 Clone the repository:
 ```bash
