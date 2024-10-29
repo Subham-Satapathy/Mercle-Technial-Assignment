@@ -67,6 +67,13 @@ To run tests, run the following command
 | `amount` | `string` | **Required**.
 | `tokenSymbol` | `string` | **Required**.
 | `userAddress` | `string` | **Required**.
-| `fastestRoute` | `string` | Optional.
 
 
+
+## Status codes
+
+| Code | Description||
+:-------- | :------- | :------------------------- |
+| `200` | Success |
+| `400` | Bad Request |
+| `500` | Internal Server Error |

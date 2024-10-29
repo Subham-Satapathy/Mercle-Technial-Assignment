@@ -33,22 +33,25 @@ export const calculateEfficientRoute = async (
 
     // Step 3: Calculate the remaining amount needed on the target chain
     const currentBalance = balances[targetChainId] || 0;
-    const remainingAmount = amount - currentBalance;
+    const remainingAmount = parseFloat((amount - currentBalance).toFixed(4));
+    
+    console.log(`Total amount required to bridge : ${remainingAmount}`);
+    
 
     // If the current balance meets the requirement, no bridging is needed
     if (remainingAmount <= 0) return [];
 
     // Step 4: Check if the total available balance across all chains is sufficient
     const totalAvailableToBridge =
-      Object.values(balances).reduce((sum, balance) => sum + balance, 0) -
-      currentBalance;
+      parseFloat((Object.values(balances).reduce((sum, balance) => sum + balance, 0) -
+      currentBalance).toFixed(4));
+
+    console.log(`Total balance across chains : ${totalAvailableToBridge}`);
+    
 
     if (totalAvailableToBridge < remainingAmount) {
-      return {
-        error: "Insufficient balance to bridge the required amount.",
-        currentBalance: totalAvailableToBridge,
-        requiredAmount: remainingAmount,
-      };
+      console.error('Insufficient balance to bridge the required amount.');
+      return {};
     }
 
     // Step 5: Filter and sort routes by lowest bridging fees and positive balances
@@ -72,17 +75,24 @@ export const calculateEfficientRoute = async (
     let totalBridged = 0;
 
     // Step 6: Select optimal routes until the required amount is bridged
+    
     for (const route of filteredRoutes) {
-      console.log(`route :: ${JSON.stringify(route)}`);
-
-      if (totalBridged >= remainingAmount) break;
+      
+      if (totalBridged >= remainingAmount){
+        console.log('Bridging amount reached!!');
+        break;
+      } 
+      
+      console.log(`remaining :: ${parseFloat((remainingAmount - totalBridged).toFixed(4))}`);
 
       // Determine amount to bridge for the current route
       const bridgeAmount = Math.min(
         route.balance,
-        remainingAmount - totalBridged
-      );
-      totalBridged += bridgeAmount;
+        parseFloat((remainingAmount - totalBridged).toFixed(4))
+      )
+      parseFloat((totalBridged += bridgeAmount).toFixed(4))
+
+      console.log(`Bridging ${bridgeAmount} from ${route.chain}`);
 
       selectedRoutes.push({
         chain: route.chain,
