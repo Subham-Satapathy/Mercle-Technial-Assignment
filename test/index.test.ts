@@ -14,7 +14,7 @@ describe('Elysia - Bridge Path API', () => {
     });
 
     it('should return a successful response for valid parameters', async () => {
-        const response = await fetch('http://localhost:3000/fetch-efficient-bridge-path?targetChain=Arbitrum&amount=86&tokenSymbol=USDC&userAddress=0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045&fastestRoute=false');
+        const response = await fetch('http://localhost:3000/fetch-efficient-bridge-path?targetChain=Arbitrum&amount=100&tokenSymbol=USDC&userAddress=0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045');
         const data = await response.json();
 
         expect(response.status).toBe(200);
