@@ -2,7 +2,7 @@ export interface Route {
   chain: string;
   amount: number;
   fee: number;
-  expectedTime: number;
+  expectedTime: number | null;
 }
 
 export interface InsufficientBalanceResponse {
@@ -14,8 +14,8 @@ export interface InsufficientBalanceResponse {
 export interface BridgeFees {
   fromChainId: string;
   toChainId: string;
-  fee: number | undefined;
-  minTime: number
+  fee: number | null;
+  minTime: number | null
 }
 
 export interface Balances {

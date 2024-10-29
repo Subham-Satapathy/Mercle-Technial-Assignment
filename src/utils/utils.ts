@@ -8,9 +8,9 @@ const chainIds: ChainIds = chainIdsData as ChainIds;
 /**
  * Finds the chain ID corresponding to the given chain name.
  * @param chainName - The name of the chain to find.
- * @returns The chain ID if found, otherwise undefined.
+ * @returns The chain ID if found, otherwise null.
  */
-export function findChainId(chainName: string): string | undefined {
+export function findChainId(chainName: string): string | null {
   try {
     return Object.entries(chainIds).find(([, value]) => value === chainName.toLowerCase())?.[0];
   } catch (error) {

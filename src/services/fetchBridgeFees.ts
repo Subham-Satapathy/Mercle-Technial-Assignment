@@ -21,7 +21,10 @@ const tokenAddressesByChainID : TokenAddressesByChainID = {
   42161: { USDC: "0xFF970A61A04b1cA14834A43f5de4533ebDDB5CC8" },    // Arbitrum
   10: { USDC: "0x7F5c764cBc14f9669B88837ca1490cCa17c31607" },       // Optimism
   1666600000: { USDC: "0x985458e523db3d53125813ed68c274899e9dfab4" }, // Harmony
-  42220: { USDC: "0x765DE816845861e75A25fCA122bb6898B8B1282a" }     // Celo
+  42220: { USDC: "0x765DE816845861e75A25fCA122bb6898B8B1282a" },     // Celo
+  34443: {USDC: "0xd988097fb8612cc24eec14542bc03424c656005f"},         //Mode,
+  8453: {USDC: "0xd9aaec86b65d86f6a7b5b1b0c42ffa531710b6ca"},          //Base
+  324: {USDC: "0x3355df6d4c9c3035724fd0e3914de96a5a83aaf4"} //Zk Sync
 };
 
 /**
@@ -48,6 +51,7 @@ const fetchBridgeFees = async (
   const sort = "gas"; // Sort routes by gas, other options are "output" and "time"
   
   const singleTxOnly = true; // Fetch single transaction only for simplicity
+  let bridgeFee = {fromChainId, toChainId: targetChainId, fee: null, minTime: null}
 
   try {
     const response = await getQuote(
@@ -63,18 +67,19 @@ const fetchBridgeFees = async (
     );
 
     const data = response.data;
-
-    const bestRoute = data?.result?.routes[0]; //As we have already sorted before
-
-    const fee = bestRoute?.totalGasFeesInUsd || undefined;
-    const minTime = bestRoute?.serviceTime
-    const bridgeFee = { fromChainId, toChainId: targetChainId, fee, minTime };
-
+    
+    if(data?.result?.routes.length > 0){ //if bridging is not available for any reason, the routes becomes []
+      const bestRoute =  data?.result?.routes[0]; //As we have already sorted before
+      const fee = bestRoute?.totalGasFeesInUsd || null;
+      const minTime = bestRoute?.serviceTime
+      bridgeFee = { fromChainId, toChainId: targetChainId, fee, minTime };
+    }
     return bridgeFee;
+    
 
   } catch (error: any) {
-    console.error(`Error fetching bridge fees: ${error.message}`);
-    throw error;
+    console.error(`Error fetching bridge fees: ${error.message}`); //Not throwing error as we are using Promise.all
+    return bridgeFee
   }
 };
 
@@ -105,8 +110,13 @@ async function getQuote(
 ) {
 
   try {
+    console.log(`Getting Quota for ${fromChainId} to ${toChainId}`);
+    
     const url = `https://api.socket.tech/v2/quote?fromChainId=${fromChainId}&fromTokenAddress=${fromTokenAddress}&toChainId=${toChainId}&toTokenAddress=${toTokenAddress}&fromAmount=${fromAmount}&userAddress=${userAddress}&uniqueRoutesPerBridge=${uniqueRoutesPerBridge}&sort=${sort}&singleTxOnly=${singleTxOnly}`;
-  
+    
+    // Log the constructed URL
+    console.log(`Request URL: ${url}`);
+
     const response = await axios.get(url, {
       headers: {
         "API-KEY": API_KEY as string,
@@ -114,10 +124,15 @@ async function getQuote(
         "Content-Type": "application/json",
       },
     });
-  
     return response;
-  } catch (error) {
-    console.error(`error while getting Quota :: ${error}`)
+
+  } catch (error: any) {
+    // Check if the error has a response and log it
+    const errorMessage = error.response 
+      ? `Error: ${error.response.status} - ${error.response.data}`
+      : `Error: ${error.message}`;
+
+    console.error(`Error while getting Quota for ${fromChainId} to ${toChainId}: ${errorMessage}`);
     throw error;
   }
 }
@@ -143,6 +158,8 @@ export const fetchFeesForAllChains = async (
       if (fromChainId !== targetChainId) {
         const bridgeFee = await fetchBridgeFees(fromChainId, targetChainId, balance, userAddress, tokenSymbol);
         return bridgeFee;
+      }else {
+        console.log(`Skipping bridge from ${fromChainId} as it is the same chain`); //If same chain  
       }
     } catch (error: any) {
       console.error(`Error fetching fees for chain ${fromChainId}:`, error);

@@ -55,8 +55,8 @@ export const calculateEfficientRoute = async (
     const filteredRoutes = routes
       .filter(
         (route): route is BridgeFees =>
-          route !== undefined &&
-          route.fee !== undefined &&
+          route !== null &&
+          route.fee !== null &&
           route.fee >= 0 &&
           balances[route.fromChainId] > 0
       )
