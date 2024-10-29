@@ -105,16 +105,21 @@ async function getQuote(
 ) {
   const url = `https://api.socket.tech/v2/quote?fromChainId=${fromChainId}&fromTokenAddress=${fromTokenAddress}&toChainId=${toChainId}&toTokenAddress=${toTokenAddress}&fromAmount=${fromAmount}&userAddress=${userAddress}&uniqueRoutesPerBridge=${uniqueRoutesPerBridge}&sort=${sort}&singleTxOnly=${singleTxOnly}`;
 
-  const response = await axios.get(url, {
-    headers: {
-      "API-KEY": API_KEY as string,
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-  });
-
-  return response;
+  try {
+    const response = await axios.get(url, {
+      headers: {
+        "API-KEY": API_KEY as string,
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    });
+    return response.data; // Return the data from the response
+  } catch (error) {
+    console.error("Error fetching quote:", error);
+    throw error; // Rethrow the error for further handling
+  }
 }
+
 
 /**
  * Fetches bridge fees for all available chains except the target chain.
