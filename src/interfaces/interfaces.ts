@@ -33,3 +33,10 @@ interface TokenAddresses {
 export interface TokenAddressesByChainID {
   [chainId: number]: TokenAddresses; // Chain ID as the key and a map of tokens as the value
 }
+
+export type Chain = {
+  chain: string;
+  balance: number;
+  fee: number;
+  minTime: number;
+};
