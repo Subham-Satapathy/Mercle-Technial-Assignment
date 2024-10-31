@@ -4,7 +4,7 @@ import {
   Route,
   InsufficientBalanceResponse,
   BridgeFees,
-  Chain
+  Chain,
 } from "../interfaces/interfaces";
 
 /**
@@ -29,23 +29,33 @@ export const calculateEfficientRoute = async (
     const balances = await fetchUserBalances(userAddress, tokenSymbol);
 
     // Step 2: Fetch bridging fees for all chains to the target chain
-    const routes = await fetchFeesForAllChains(balances, targetChainId, userAddress, tokenSymbol);
+    const routes = await fetchFeesForAllChains(
+      balances,
+      targetChainId,
+      userAddress,
+      tokenSymbol
+    );
     console.log(`routes: ${JSON.stringify(routes)}`);
 
     // Step 3: Calculate the remaining amount needed on the target chain
     const currentBalance = balances[targetChainId] || 0;
-    const remainingAmount = Math.max(0, parseFloat((amount - currentBalance).toFixed(4)));
+    const remainingAmount = Math.max(
+      0,
+      parseFloat((amount - currentBalance).toFixed(4))
+    );
     console.log(`Total amount required to bridge: ${remainingAmount}`);
 
     // If the current balance meets the requirement, no bridging is needed
     if (remainingAmount <= 0) return [];
 
     // Step 4: Check if the total available balance across all chains is sufficient
-    const totalAvailableToBridge = parseFloat(
-      (Object.entries(balances).reduce((sum, [chainId, balance]) => {
-        // Only sum balances that are not from the targetChainId
-        return chainId !== targetChainId ? sum + balance : sum;
-      }, 0) - currentBalance).toFixed(4)
+    const totalAvailableToBridge: number = parseFloat(
+      Object.entries(balances)
+        .reduce((sum, [chainId, balance]) => {
+          // Only sum balances that are not from the targetChainId
+          return chainId !== targetChainId ? sum + balance : sum; // Sum only if not the targetChainId
+        }, 0)
+        .toFixed(4) // Format total to 4 decimal places
     );
 
     console.log(`Total balance across chains: ${totalAvailableToBridge}`);
@@ -57,18 +67,25 @@ export const calculateEfficientRoute = async (
 
     // Step 5: Filter routes with not null and positive balances and create a desired object by mapping
     const filteredRoutes = routes
-      .filter((route): route is BridgeFees => route !== null && route.fee !== null && route.fee >= 0 && balances[route.fromChainId] > 0)
+      .filter(
+        (route): route is BridgeFees =>
+          route !== null &&
+          route.fee !== null &&
+          route.fee >= 0 &&
+          balances[route.fromChainId] > 0
+      )
       .map((route) => ({
         chain: route.fromChainId,
         balance: balances[route.fromChainId],
         fee: route.fee as number,
         minTime: route.minTime,
-      }))
-
-    console.log(`filtered routes: ${JSON.stringify(filteredRoutes)}`);
+      }));
 
     // Find all valid combinations of routes
-    const allCombinations = findAllCombinations(filteredRoutes, remainingAmount);
+    const allCombinations = findAllCombinations(
+      filteredRoutes,
+      remainingAmount
+    );
 
     // Step 6: Get the combination with the least fee
     const leastFeeCombination = getLeastFeeCombination(allCombinations);
@@ -81,7 +98,6 @@ export const calculateEfficientRoute = async (
 
     // Step 7: Select optimal routes until the required amount is bridged
     return selectOptimalRoutes(leastFeeCombination, remainingAmount);
-
   } catch (error) {
     console.error(`Error occurred while calculating efficient route: ${error}`);
     throw error;
@@ -96,10 +112,18 @@ export const calculateEfficientRoute = async (
  *
  * @returns An array of combinations that meet the target amount.
  */
-function findAllCombinations(chains: Chain[], targetAmount: number): { total: number; fee: number; route: Chain[] }[] {
+function findAllCombinations(
+  chains: Chain[],
+  targetAmount: number
+): { total: number; fee: number; route: Chain[] }[] {
   const results: { total: number; fee: number; route: Chain[] }[] = [];
 
-  function backtrack(totalBalance: number, feeSoFar: number, index: number, route: Chain[]): void {
+  function backtrack(
+    totalBalance: number,
+    feeSoFar: number,
+    index: number,
+    route: Chain[]
+  ): void {
     // Check if we have met or exceeded the target amount
     if (totalBalance >= targetAmount) {
       results.push({ total: totalBalance, fee: feeSoFar, route: [...route] });
@@ -136,14 +160,18 @@ function findAllCombinations(chains: Chain[], targetAmount: number): { total: nu
  *
  * @returns The combination with the least fee, or null if none exist.
  */
-function getLeastFeeCombination(combinations: { total: number; fee: number; route: Chain[] }[]): { total: number; fee: number; route: Chain[] } | null {
+function getLeastFeeCombination(
+  combinations: { total: number; fee: number; route: Chain[] }[]
+): { total: number; fee: number; route: Chain[] } | null {
   // Check if the input array is empty
   if (combinations.length === 0) {
     return null; // Return null if there are no combinations
   }
 
   // Use Array.reduce to find the combination with the least fee
-  return combinations.reduce((prev, current) => (current.fee < prev.fee ? current : prev));
+  return combinations.reduce((prev, current) =>
+    current.fee < prev.fee ? current : prev
+  );
 }
 
 /**
@@ -154,7 +182,10 @@ function getLeastFeeCombination(combinations: { total: number; fee: number; rout
  *
  * @returns An array of selected routes that bridge the required amount.
  */
-function selectOptimalRoutes(leastFeeCombination: { total: number; fee: number; route: Chain[] }, remainingAmount: number): Route[] {
+function selectOptimalRoutes(
+  leastFeeCombination: { total: number; fee: number; route: Chain[] },
+  remainingAmount: number
+): Route[] {
   const selectedRoutes: Route[] = [];
   let totalBridged = 0;
 
@@ -163,7 +194,9 @@ function selectOptimalRoutes(leastFeeCombination: { total: number; fee: number; 
       break;
     }
 
-    const currentRemaining = parseFloat((remainingAmount - totalBridged).toFixed(4));
+    const currentRemaining = parseFloat(
+      (remainingAmount - totalBridged).toFixed(4)
+    );
     // Determine amount to bridge for the current route
     const bridgeAmount = Math.min(route.balance, currentRemaining);
     totalBridged += bridgeAmount; // Update total bridged amount
