@@ -69,7 +69,7 @@ const fetchBridgeFees = async (
     const data = response.data;
     
     if(data?.result?.routes.length > 0){ //if bridging is not available for any reason, the routes becomes []
-      const bestRoute =  data?.result?.routes[0]; //As we have already sorted before
+      const bestRoute =  data?.result?.routes[data?.result?.routes.length - 1]; //As the result is sorted in descending order by fess, we are considering the last index
       const fee = bestRoute?.totalGasFeesInUsd || null;
       const minTime = bestRoute?.serviceTime
       bridgeFee = { fromChainId, toChainId: targetChainId, fee, minTime };
@@ -167,8 +167,9 @@ export const fetchFeesForAllChains = async (
     }
   });
 
-  // Wait for all promises to resolve and filter out undefined results
+  // Wait for all promises to resolve and filter out `null` and `undefined`
   const allResults = await Promise.all(promises);
   console.log("All fees fetched:", allResults);
-  return allResults.filter(result => result);
+  return allResults.filter(result => result != null && result.fee != null);
+
 };

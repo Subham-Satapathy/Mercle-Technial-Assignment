@@ -1,8 +1,9 @@
-import { Route, ChainIds } from '../interfaces/interfaces';
+import { ChainIds, Route } from '../interfaces/interfaces';
 
 
 // Import the JSON and cast it
 import chainIdsData from "../constants/chainIds.json";
+
 const chainIds: ChainIds = chainIdsData as ChainIds;
 
 /**
@@ -21,61 +22,57 @@ export function findChainId(chainName: string): string | null {
   }
 }
 
-
-/**
- * Calculates the total fees from an array of routes.
- * @param routes - An array of Route objects.
- * @returns The total fee as a number rounded to four decimal places.
- */
-export const calculateTotalFees = (routes: Route[]): number => {
-  return parseFloat(routes.reduce((total, route) => total + route.fee, 0).toFixed(4));
-};
-
-/**
- * Calculates the total estimated time for an array of routes in seconds.
- * @param routes - An array of Route objects.
- * @returns The total estimated time in seconds.
- */
-export const calculateTotalEstimatedTime = (routes: Route[]): number => {
-  return routes.reduce((total, route) => {
-    // Use a default value of 0 if route.expectedTime is null
-    const expectedTime = route.expectedTime ?? 0; 
-    return total + expectedTime; 
-  }, 0);
-};
-
-/**
- * Maps the chain name to its corresponding chain ID.
- * @param routes - An array of Route objects.
- * @returns An array of Route objects with mapped chain IDs.
- */
-export const mapChainName = (routes: Route[]): Route[] => {
-  return routes.map(route => ({
-    ...route,
-    chain: chainIds[route.chain] ?? route.chain,
-  }));
-};
-
 /**
  * Formats the estimated time from seconds to a readable string.
  * @param seconds - The time in seconds.
  * @returns A formatted string representing the time in hours or minutes.
  */
-export const formatEstimatedTime = (seconds: number): string => {
-  const minutes = Math.floor(seconds / 60);
-  const hours = Math.floor(seconds / 3600);
-  
-  return hours > 0 ? `${hours} hour${hours > 1 ? 's' : ''}` : `${minutes} minute${minutes > 1 ? 's' : ''}`;
+export const formatEstimatedTime = (seconds: number | null): string => {
+  if(seconds){
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(seconds / 3600);
+    
+    return hours > 0 ? `${hours} hour${hours > 1 ? 's' : ''}` : `${minutes} minute${minutes > 1 ? 's' : ''}`;
+  }
+  return ''
 };
 
 /**
- * Gets the routes with formatted expected time.
- * @param routes - An array of Route objects.
- * @returns An array of Route objects with formatted expected times.
- */
-export const getTimeFormattedRoutes = (routes: Route[]): Route[] => {
-  return routes.map(route => ({
-    ...route,
-    expectedTime: formatEstimatedTime(route.expectedTime),
-  }));
+ * Transforms an array of route data into a structured format that summarizes total fees and expected times.
+ *
+ * @param inputData - An array of route objects, where each object contains:
+ *   - chain: The name or identifier of the blockchain (string).
+ *   - amount: The amount being transferred (number).
+ *   - fee: The fee associated with the route (number).
+ *   - expectedTime: The expected time to complete the transaction in seconds (number).
+ * @returns A transformed object.
+ * */
+
+export const transformDataToDesiredFormat = (inputData: Route []) => {
+  const result = inputData.reduce(
+    (acc, item) => {
+      // Sum total fees and expected times
+      acc.totalFee += item.fee;
+      acc.totalExpectedTime += item.expectedTime; // summing total seconds
+
+      // Add each route's transformed data
+      acc.routes.push({
+        chain: item.chain,
+        amount: item.amount,
+        fee: parseFloat(item.fee.toFixed(4)), // rounding fee to 4 decimal places
+        expectedTime: formatEstimatedTime(item.expectedTime), // formatting time
+      });
+
+      return acc;
+    },
+    { success: 'true', totalFee: 0, totalExpectedTime: 0, routes: [] as any[] }
+  );
+  // Convert total expected time from seconds to the formatted string
+  result.totalExpectedTime = formatEstimatedTime(result.totalExpectedTime);
+
+  // Round total fee to 4 decimal places
+  result.totalFee = parseFloat(result.totalFee.toFixed(4));
+
+  return result;
 };
+

@@ -38,5 +38,5 @@ export type Chain = {
   chain: string;
   balance: number;
   fee: number;
-  minTime: number;
+  minTime: number | null;
 };

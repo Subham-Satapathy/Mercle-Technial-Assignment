@@ -65,27 +65,23 @@ export const calculateEfficientRoute = async (
       return {};
     }
 
-    // Step 5: Filter routes with not null and positive balances and create a desired object by mapping
+    // Step 5: Filter routes with positive balances and create a desired object by mapping
     const filteredRoutes = routes
-      .filter(
-        (route): route is BridgeFees =>
-          route !== null &&
-          route.fee !== null &&
-          route.fee >= 0 &&
-          balances[route.fromChainId] > 0
-      )
+      .filter((route): route is BridgeFees => route.fee >= 0 && balances[route.fromChainId] > 0)
       .map((route) => ({
         chain: route.fromChainId,
         balance: balances[route.fromChainId],
         fee: route.fee as number,
         minTime: route.minTime,
       }));
+    
 
     // Find all valid combinations of routes
     const allCombinations = findAllCombinations(
       filteredRoutes,
       remainingAmount
     );
+
 
     // Step 6: Get the combination with the least fee
     const leastFeeCombination = getLeastFeeCombination(allCombinations);
@@ -97,7 +93,7 @@ export const calculateEfficientRoute = async (
     }
 
     // Step 7: Select optimal routes until the required amount is bridged
-    return selectOptimalRoutes(leastFeeCombination, remainingAmount);
+    return getAmountRequiredFromChains(leastFeeCombination, remainingAmount);
   } catch (error) {
     console.error(`Error occurred while calculating efficient route: ${error}`);
     throw error;
@@ -182,7 +178,7 @@ function getLeastFeeCombination(
  *
  * @returns An array of selected routes that bridge the required amount.
  */
-function selectOptimalRoutes(
+function getAmountRequiredFromChains(
   leastFeeCombination: { total: number; fee: number; route: Chain[] },
   remainingAmount: number
 ): Route[] {

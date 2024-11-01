@@ -1,15 +1,7 @@
 import { Elysia } from "elysia";
 import { calculateEfficientRoute } from "./services/calculateEfficientRoute";
-import {
-  findChainId,
-  calculateTotalFees,
-  mapChainName,
-  formatEstimatedTime,
-  calculateTotalEstimatedTime,
-  getTimeFormattedRoutes,
-} from "./utils/utils";
+import { findChainId, transformDataToDesiredFormat } from "./utils/utils";
 import { Route } from "./interfaces/interfaces";
-
 const app = new Elysia();
 
 /**
@@ -65,7 +57,6 @@ app.get("/fetch-efficient-bridge-path", async ({ query, error }) => {
     );
 
     if (Array.isArray(routes)) {
-
       // If no bridging is needed (indicated by an empty route array), inform the user
       if (routes.length === 0) {
         return {
@@ -75,33 +66,17 @@ app.get("/fetch-efficient-bridge-path", async ({ query, error }) => {
             "You already have sufficient funds on the target chain. No bridging is necessary!",
         };
       }
-
-      // Calculate the total bridge fee and map chain IDs to chain names for each route
-      const totalBridgeFee = calculateTotalFees(routes as Route[]);
-      const totalTime = formatEstimatedTime(
-        calculateTotalEstimatedTime(routes as Route[])
-      );
-
-      //Formatting expectedTime
-      const timeFormattedRoutes = getTimeFormattedRoutes(routes as Route[]);
-
-      const routesWithChainName = mapChainName(timeFormattedRoutes as Route[]);
-
-      // Return the route data with chain names and total fees
-      return {
-        success: true,
-        totalFee: totalBridgeFee,
-        totalExpectedTime: totalTime,
-        routes: routesWithChainName,
-      };
-    }else{
+      //Transform result into final response
+      const transformedResponse = transformDataToDesiredFormat(routes as Route[]);
+      return transformedResponse;
+    } else {
       return error(400, {
         success: false,
         routes: [],
-        message:
-          'Insufficient balance to bridge the required amount.',
+        message: "Insufficient balance to bridge the required amount.",
       });
     }
+
   } catch (err) {
     // Handle unexpected errors with a log message and a 500 status response
     console.error(
