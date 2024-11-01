@@ -3,6 +3,7 @@ import { calculateEfficientRoute } from "./services/calculateEfficientRoute";
 import { findChainId, transformDataToDesiredFormat } from "./utils/utils";
 import { Route } from "./interfaces/interfaces";
 const app = new Elysia();
+import { HttpError } from './errors/HttpError';
 
 /**
  * Fetches the most cost-efficient bridge path for asset transfers.
@@ -32,20 +33,13 @@ app.get("/fetch-efficient-bridge-path", async ({ query, error }) => {
 
     // Validate required parameters
     if (!targetChain || !amount || !tokenSymbol || !userAddress) {
-      return error(400, {
-        success: false,
-        error:
-          "Missing required parameters. Ensure targetChain, amount, tokenSymbol, and userAddress are provided.",
-      });
+      throw new HttpError("Missing required parameters. Ensure targetChain, amount, tokenSymbol, and userAddress are provided.", 400);
     }
 
     // Retrieve chain ID for target chain and validate its support
     const targetChainId = findChainId(targetChain);
     if (!targetChainId) {
-      return error(400, {
-        success: false,
-        error: `Unsupported chain name: ${targetChain}`,
-      });
+      throw new HttpError(`Unsupported chain name: ${targetChain}`, 400);
     }
 
     // Calculate the most cost-effective route for the asset transfer
@@ -69,19 +63,16 @@ app.get("/fetch-efficient-bridge-path", async ({ query, error }) => {
       //Transform result into final response
       const transformedResponse = transformDataToDesiredFormat(routes as Route[]);
       return transformedResponse;
-    } else {
-      return error(400, {
-        success: false,
-        routes: [],
-        message: "Insufficient balance to bridge the required amount.",
-      });
     }
 
   } catch (err) {
     // Handle unexpected errors with a log message and a 500 status response
-    console.error(
-      `Error occurred while processing the bridge path request: ${err}`
-    );
+    if (err instanceof HttpError) {
+      return error(err.statusCode, {
+        success: false,
+        error: err.message
+      })
+    }
     return error(500, {
       success: false,
       error: "Internal Server Error",

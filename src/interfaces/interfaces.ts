@@ -5,12 +5,6 @@ export interface Route {
   expectedTime: number | null;
 }
 
-export interface InsufficientBalanceResponse {
-  error: string;
-  currentBalance: number;
-  requiredAmount: number;
-}
-
 export interface BridgeFees {
   fromChainId: string;
   toChainId: string;
