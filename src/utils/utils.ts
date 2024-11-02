@@ -57,7 +57,7 @@ export const transformDataToDesiredFormat = (inputData: Route []) => {
 
       // Add each route's transformed data
       acc.routes.push({
-        chain: item.chain,
+        chain: chainIds[item.chain] ?? item.chain,
         amount: item.amount,
         fee: parseFloat(item.fee.toFixed(4)), // rounding fee to 4 decimal places
         expectedTime: formatEstimatedTime(item.expectedTime), // formatting time
